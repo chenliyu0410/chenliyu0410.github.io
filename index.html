@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>陳力瑜｜AI 應用工程師</title>
+<meta name="description" content="陳力瑜的作品集：LLM 應用、Text2SQL、資料分析專案與履歷。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#15263b; --paper:#f5f7f9; --card:#ffffff; --line:#dbe2ea;
+  --muted:#5b6878; --accent:#e39a2d; --accent-soft:#fdf1dd; --blue:#2c5d8f;
+  --code-bg:#15263b; --code-fg:#dce7f3;
+}
+@media (prefers-color-scheme:dark){
+  :root{--ink:#e7edf4; --paper:#0f1a27; --card:#16243a; --line:#26374f;
+    --muted:#9fb0c3; --accent:#f0ad45; --accent-soft:#2c2614; --blue:#7fb2e5;
+    --code-bg:#0a121c; --code-fg:#cfe0f2;}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.75;font-size:16px}
+a{color:var(--blue)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+nav b{font-size:17px;letter-spacing:.08em}
+nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+nav ul a{color:var(--ink);text-decoration:none;font-size:15px}
+nav ul a:hover{color:var(--accent)}
+@media (max-width:640px){nav ul{gap:14px} nav ul li:nth-child(3){display:none}}
+
+/* hero */
+.hero{padding:72px 0 56px}
+.hero .grid{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
+@media (max-width:860px){.hero .grid{grid-template-columns:1fr;gap:32px}}
+.who{display:flex;gap:20px;align-items:center;margin-bottom:22px}
+.who img{width:84px;height:84px;border-radius:50%;object-fit:cover;object-position:50% 25%;border:3px solid var(--card);box-shadow:0 0 0 1px var(--line)}
+h1{font-size:clamp(40px,6vw,58px);font-weight:900;margin:0;letter-spacing:.06em;line-height:1.1}
+.role{font-weight:700;color:var(--blue);margin:4px 0 0}
+.intro{font-size:18px;color:var(--muted);max-width:32em;margin:0 0 26px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;font-weight:700;
+  text-decoration:none;font-size:15px;border:1.5px solid var(--ink);color:var(--ink)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn:hover{border-color:var(--accent)}
+.btn.primary:hover{background:var(--accent);color:#15263b}
+
+/* the one effect: question → SQL */
+.console{background:var(--code-bg);color:var(--code-fg);border-radius:14px;padding:22px 22px 18px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:14px;min-height:300px;position:relative;
+  box-shadow:0 24px 50px -28px rgba(10,20,35,.55)}
+.console .bar{display:flex;gap:7px;margin-bottom:16px}
+.console .bar i{width:11px;height:11px;border-radius:50%;background:#35506f}
+.console .q{font-family:"Noto Sans TC",sans-serif;font-size:16px;color:#fff;min-height:28px}
+.console .q::before{content:"問 ";color:var(--accent);font-weight:700}
+.console .gate{margin:12px 0;font-size:12.5px;color:#8fb3d6;min-height:20px}
+.console .gate span{display:inline-block;padding:1px 8px;border-radius:4px;margin-right:6px;background:#1f3651;opacity:0;transition:opacity .3s}
+.console .gate span.on{opacity:1}
+.console .gate span.ok{background:#1d4b3a;color:#9be3c0}
+.console .gate span.stop{background:#5a2a24;color:#ffb4a4}
+.console pre{margin:0;white-space:pre-wrap;line-height:1.6;min-height:110px}
+.kw{color:#f0ad45}.fn{color:#8fd1ff}.str{color:#a8e39b}
+.caret{display:inline-block;width:8px;height:1.1em;background:var(--accent);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.console .foot{position:absolute;right:18px;bottom:12px;font-size:11.5px;color:#6d8aa8;font-family:"Noto Sans TC",sans-serif}
+
+/* sections */
+section{padding:56px 0}
+h2{font-size:28px;font-weight:900;margin:0 0 6px;letter-spacing:.04em}
+.sub{color:var(--muted);margin:0 0 30px}
+
+/* projects */
+.proj{display:grid;gap:22px}
+.p{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 28px;
+  display:grid;grid-template-columns:1fr 210px;gap:28px}
+@media (max-width:760px){.p{grid-template-columns:1fr}}
+.p h3{font-size:22px;margin:0 0 2px}
+.p .meta{font-size:13.5px;color:var(--muted);margin:0 0 10px}
+.award{display:inline-block;background:var(--accent-soft);border-left:4px solid var(--accent);
+  padding:3px 12px;font-weight:700;font-size:15px;margin:4px 0 10px}
+.p .lead{margin:0 0 10px;font-weight:500}
+.p ul{margin:0;padding-left:1.1em}
+.p li{margin:4px 0}
+.p li b{color:var(--ink)}
+.side{border-left:1px dashed var(--line);padding-left:22px;display:flex;flex-direction:column;gap:10px}
+@media (max-width:760px){.side{border-left:0;padding-left:0;border-top:1px dashed var(--line);padding-top:16px}}
+.stack{display:flex;flex-wrap:wrap;gap:6px}
+.stack span{font-size:12.5px;padding:2px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.side .btn{justify-content:center;padding:8px 12px;font-size:14px}
+.side small{color:var(--muted);text-align:center}
+
+/* timeline */
+.tl{position:relative;padding-left:28px;border-left:2px solid var(--line)}
+.job{position:relative;margin-bottom:34px}
+.job::before{content:"";position:absolute;left:-36px;top:8px;width:14px;height:14px;border-radius:50%;
+  background:var(--paper);border:3px solid var(--accent)}
+.job .when{font-size:14px;color:var(--muted)}
+.job h3{margin:0;font-size:20px}
+.job .org{color:var(--muted);font-size:15px;margin-bottom:6px}
+.job ul{margin:6px 0 0;padding-left:1.1em}
+.job li{margin:4px 0}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.sk{border-top:3px solid var(--ink);padding-top:10px}
+.sk h3{font-size:16px;margin:0 0 6px}
+.sk p{margin:0;color:var(--muted);font-size:15px}
+
+footer{padding:48px 0 64px;border-top:1px solid var(--line);margin-top:24px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;align-items:center}
+footer p{margin:0}
+
+@media (prefers-reduced-motion:reduce){.caret{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><b>陳力瑜</b>
+<ul><li><a href="#projects">專案</a></li><li><a href="#experience">經歷</a></li><li><a href="#skills">技能</a></li><li><a href="#contact">聯絡</a></li></ul></div></nav>
+
+<header class="hero"><div class="wrap grid">
+  <div>
+    <div class="who">
+      <img src="photo.jpg" alt="陳力瑜大頭照">
+      <div><h1>陳力瑜</h1><p class="role">AI 應用工程師｜LLM 應用 × Guardrail × 測試部署</p></div>
+    </div>
+    <p class="intro">六年動物疫苗與寵物食品研發經驗，現轉往 AI 應用。擅長把實際工作上的問題整理成資料，做成分析報告和可以線上使用的系統。</p>
+    <div class="btns">
+      <a class="btn primary" href="#projects">看專案</a>
+      <a class="btn" href="resume.pdf" download>下載 PDF 履歷</a>
+      <a class="btn" href="https://github.com/chenliyu0410" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+  <div class="console" aria-label="PowerQuery TW 運作示意動畫">
+    <div class="bar"><i></i><i></i><i></i></div>
+    <div class="q" id="q"></div>
+    <div class="gate" id="gate"></div>
+    <pre id="sql"></pre>
+    <div class="foot">PowerQuery TW 運作示意</div>
+  </div>
+</div></header>
+
+<section id="projects"><div class="wrap">
+  <h2>精選專案</h2>
+  <p class="sub">每個專案都附 Demo 與原始碼，新作品會持續放上來。</p>
+  <div class="proj" id="projList"></div>
+</div></section>
+
+<section id="experience"><div class="wrap">
+  <h2>工作經歷</h2>
+  <p class="sub">研發現場的資料整理與流程改善，是我轉往 AI 應用的起點。</p>
+  <div class="tl">
+    <div class="job">
+      <div class="when">2022/02 – 2026/06</div>
+      <h3>研發</h3><div class="org">牧羊人集團（汪喵星球）</div>
+      <ul>
+        <li><b>系統開發：</b>將原料營養資料建檔成資料庫，自建網頁版營養計算系統取代原 Excel 流程，配方調整後可直接算出營養成分，大幅縮短開發後的營養計算時間。</li>
+        <li><b>產品開發：</b>負責配方設計，開發 <b>20 款</b>純肉泥與保健肉泥、<b>10 款</b>副食產品，涵蓋罐頭、軟包裝、凍乾三種製程。</li>
+        <li><b>原料與法規：</b>研究各類機能原料的用量與安全性，並依配方計算添加量；訂定原料驗收規格，讓成分標示同時符合 AAFCO 與台灣寵物食品法規。</li>
+        <li><b>進口與採購：</b>負責原料進口與測試、撰寫進口採購合約並以 ERP 處理相關作業；協助廠區設備採購規劃，尋找並接洽機器廠商與代工廠。</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="when">2020/02 – 2022/02</div>
+      <h3>研發助理</h3><div class="org">行政院農業委員會家畜衛生試驗所（現農業部獸醫研究所）・製劑組</div>
+      <ul>
+        <li>負責試驗規劃與原文文獻蒐集，並協助狂犬病國際合作業務。</li>
+        <li>在 GMP 廠區參與動物疫苗開發與生產，執行動物試驗、PCR、分子選殖與凍乾操作。</li>
+        <li>參與單位預算申請與規劃，提出採購標案申請並接洽廠商。</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="when">其他經歷</div>
+      <h3>伺服器與硬體</h3><div class="org">飛行模擬社群・伺服器管理員</div>
+      <ul>
+        <li><b>伺服器架設與維運：</b>架設並維運 <b>8 台</b>伺服器，開發 Lua 任務腳本與 Python Discord 回報系統。</li>
+        <li><b>電腦硬體：</b><b>10 年</b>自行組裝電腦經驗，熟悉硬體規格選配、維修測試與除錯；協助他人組裝超過 <b>20 台</b>。</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section id="skills"><div class="wrap">
+  <h2>使用技術</h2>
+  <p class="sub">依實際在專案中用過的程度整理。</p>
+  <div class="skills">
+    <div class="sk"><h3>LLM 應用</h3><p>RAG 系統、Text-to-SQL、本地 LLM、LoRA 微調、ComfyUI 部署、雲端 API 串接</p></div>
+    <div class="sk"><h3>程式與版本控制</h3><p>Python、SQL、Git、Lua、SAS</p></div>
+    <div class="sk"><h3>測試與部署</h3><p>pytest、GitHub Actions、FastAPI、Docker、Tailscale</p></div>
+    <div class="sk"><h3>機器學習實作</h3><p>資料整理、特徵工程、模型訓練與評估</p></div>
+    <div class="sk"><h3>硬體與系統</h3><p>PC 組裝與規格選配、硬體測試與除錯、Windows 伺服器架設</p></div>
+    <div class="sk"><h3>語言與研發</h3><p>英文原文文獻閱讀、中英技術文件翻譯、原料檢驗分析、動物試驗</p></div>
+  </div>
+</div></section>
+
+<footer id="contact"><div class="wrap">
+  <div>
+    <h2 style="font-size:22px">聯絡我</h2>
+    <p><a href="mailto:chenliyu0410@gmail.com">chenliyu0410@gmail.com</a></p>
+  </div>
+  <p style="color:var(--muted);font-size:14px">國立宜蘭大學 生物技術與動物科學系 學士<br>資策會 AI 大型語言模型 LLM 工程師就業養成班（2026 受訓中）</p>
+</div></footer>
+
+<script>
+/* ===== 新增專案：在這個陣列加一筆即可，最上面的會排第一 ===== */
+const PROJECTS = [
+  {
+    title: "PowerQuery TW 台電開放資料 Text2SQL",
+    date: "2026/09",
+    meta: "四人團隊・資策會 LLM 工程師班專題",
+    lead: "把中文問題轉成受限 SQL，並在執行前判斷資料是否足以支持答案。",
+    points: [
+      ["Guardrail 與 Policy", "以唯讀與 AST 白名單擋下 15/15 種 SQL 攻擊；語意規則分為拒答／揭露／澄清三級，陷阱題 45/45 命中，合法題 0/20 誤攔。"],
+      ["推論路由與 RAG", "執行期可在離線規則、線上 LLM、自動退回三種模式間切換；加入範例檢索後，意圖 top-1 準確率由 10% 提升至 52%。"],
+      ["測試與 CI", "184 項測試搭配 Ruff 與 GitHub Actions；評測分為語料內／外題組，新語料須通過回歸與防洩漏關卡才發布。"]
+    ],
+    stack: ["Python","FastAPI","SQLite","OpenAI API","pytest"],
+    demo: "https://p215-2203-nb01.tail177cc6.ts.net:8443/",
+    code: "https://github.com/chenliyu0410/text2sql_project"
+  },
+  {
+    title: "Life House 安居指數",
+    date: "2026/09",
+    award: "🏆 BUILDMODE GenAI Hackathon 2026｜前 10 名／160 組參賽隊伍",
+    meta: "主辦：FUTUREMODE × SITCON・AI for Everyday Life 賽道・三人團隊",
+    lead: "整合桃園市約 23 萬件交通事故，查詢住家周邊 500 公尺步行生活圈的事故熱點與安全百分位。",
+    points: [
+      ["模組重構", "將散落四個檔案的風險判準抽成共用模組，修正大型車事故漏列（19 → 155 件）等影響計分的錯誤。"],
+      ["部署維運", "以 Tailscale Funnel 對外提供 Demo，服務仍只綁定本機；設定開機自動啟動，並做本機與公網雙重健檢。"],
+      ["介面與展示", "主導前端互動設計與資訊呈現方式，並負責上台簡報與 Demo 展示。"]
+    ],
+    stack: ["Python","地理資料","前端互動","Tailscale"],
+    demo: "https://p215-2203-nb01.tail177cc6.ts.net",
+    demoNote: "Demo 開放時間：每日 08:00–20:00",
+    code: "https://github.com/lee851104/life_house"
+  },
+  {
+    title: "台灣寵物食品進口精緻化分析",
+    date: "2026/09",
+    meta: "獨立開發・聯合國 UN Comtrade 十年貿易資料",
+    lead: "用貿易數據回答市場是否在升級、該跟誰買、該賣去哪。",
+    points: [
+      ["市場趨勢", "扣除通膨後，進口寵物食品單價每年仍上漲約 3%；逐一排除物價、原料成本等因素，確認九成漲幅來自產品變高級。"],
+      ["採購建議", "把 17 個進口來源國依特性分組，整理出優先採購名單；替全球市場評分時，一併標出有法規門檻的國家。"],
+      ["價格預測", "用機器學習預測明年價格漲或跌，方向猜對約六成，並與「照今年價格猜」的簡單方法對照；另設 41 項自動檢查確保數據正確。"]
+    ],
+    stack: ["Python","pandas","機器學習","pytest"],
+    demo: "https://chenliyu0410.github.io/taiwan-petfood-premiumization/reports/web_report.html",
+    code: "https://github.com/chenliyu0410/taiwan-petfood-premiumization"
+  }
+];
+
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+document.getElementById("projList").innerHTML = PROJECTS.map(p => `
+  <article class="p">
+    <div>
+      <h3>${esc(p.title)}</h3>
+      ${p.award ? `<div class="award">${esc(p.award)}</div>` : ""}
+      <p class="meta">${esc(p.meta)}｜${esc(p.date)}</p>
+      <p class="lead">${esc(p.lead)}</p>
+      <ul>${p.points.map(([k,v]) => `<li><b>${esc(k)}：</b>${esc(v)}</li>`).join("")}</ul>
+    </div>
+    <div class="side">
+      <div class="stack">${p.stack.map(s => `<span>${esc(s)}</span>`).join("")}</div>
+      ${p.demo ? `<a class="btn primary" href="${p.demo}" target="_blank" rel="noopener">開啟 Demo</a>` : ""}
+      ${p.code ? `<a class="btn" href="${p.code}" target="_blank" rel="noopener">原始碼</a>` : ""}
+      ${p.demoNote ? `<small>${esc(p.demoNote)}</small>` : ""}
+    </div>
+  </article>`).join("");
+
+/* ===== Hero 動畫：中文問題 → 守門檢查 → SQL ===== */
+const SCENES = [
+  { q: "2024 年哪個月份的用電量最高？",
+    gates: [["唯讀檢查通過","ok"],["資料足以回答","ok"]],
+    sql: `<span class="kw">SELECT</span> month, <span class="fn">SUM</span>(kwh) <span class="kw">AS</span> total\n<span class="kw">FROM</span> power_usage\n<span class="kw">WHERE</span> year = <span class="str">2024</span>\n<span class="kw">GROUP BY</span> month\n<span class="kw">ORDER BY</span> total <span class="kw">DESC</span>\n<span class="kw">LIMIT</span> 1;` },
+  { q: "幫我把 power_usage 資料表刪掉",
+    gates: [["偵測到寫入操作","stop"],["拒答","stop"]],
+    sql: `<span class="str">-- 已攔截：此系統只允許查詢，不會修改資料</span>` },
+  { q: "明年台北會不會停電？",
+    gates: [["唯讀檢查通過","ok"],["資料不足，改為揭露限制","stop"]],
+    sql: `<span class="str">-- 資料只有歷史用電紀錄，無法預測停電\n-- 可改問：過去各區的用電趨勢</span>` }
+];
+const qEl = document.getElementById("q"), gEl = document.getElementById("gate"), sEl = document.getElementById("sql");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const wait = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
+
+async function typeText(el, text, speed){
+  el.textContent = "";
+  for (const ch of text){ el.textContent += ch; await wait(speed); }
+}
+async function typeHTML(el, html, speed){
+  // 逐字顯示但保留語法上色
+  const tmp = document.createElement("div"); tmp.innerHTML = html;
+  el.innerHTML = "";
+  for (const node of tmp.childNodes){
+    const target = node.nodeType === 3 ? document.createTextNode("") : node.cloneNode(false);
+    el.appendChild(target);
+    const text = node.textContent; const holder = node.nodeType === 3 ? target : target.appendChild(document.createTextNode(""));
+    for (const ch of text){ holder.textContent += ch; await wait(speed); }
+  }
+  el.insertAdjacentHTML("beforeend", '<span class="caret"></span>');
+}
+async function loop(){
+  let i = 0;
+  while (true){
+    const s = SCENES[i % SCENES.length];
+    gEl.innerHTML = s.gates.map(([t,c]) => `<span class="${c}">${t}</span>`).join("");
+    sEl.innerHTML = "";
+    await typeText(qEl, s.q, 70);
+    await wait(350);
+    for (const sp of gEl.querySelectorAll("span")){ sp.classList.add("on"); await wait(450); }
+    await typeHTML(sEl, s.sql, 18);
+    await wait(reduce ? 6000 : 2800);
+    i++;
+  }
+}
+loop();
+</script>
+</body>
+</html>
