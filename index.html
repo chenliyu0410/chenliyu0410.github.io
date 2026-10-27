@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>陳力瑜｜AI 應用工程師</title>
-<meta name="description" content="陳力瑜的作品集：LLM 應用、Text2SQL、資料分析專案與履歷。">
+<meta name="description" content="陳力瑜的作品集：RAG、本地 LLM、後端系統、資料分析專案與履歷。">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,7 +54,7 @@ h1{font-size:clamp(40px,6vw,58px);font-weight:900;margin:0;letter-spacing:.06em;
 .btn:hover{border-color:var(--accent)}
 .btn.primary:hover{background:var(--accent);color:#15263b}
 
-/* the one effect: question → SQL */
+/* the one effect: question → retrieval → cited answer */
 .console{background:var(--code-bg);color:var(--code-fg);border-radius:14px;padding:22px 22px 18px;
   font-family:"JetBrains Mono",ui-monospace,monospace;font-size:14px;min-height:300px;position:relative;
   box-shadow:0 24px 50px -28px rgba(10,20,35,.55)}
@@ -130,27 +130,27 @@ footer p{margin:0}
   <div>
     <div class="who">
       <img src="photo.jpg" alt="陳力瑜大頭照">
-      <div><h1>陳力瑜</h1><p class="role">AI 應用工程師｜LLM 應用 × Guardrail × 測試部署</p></div>
+      <div><h1>陳力瑜</h1><p class="role">AI 應用工程師｜後端系統 × 產業落地</p></div>
     </div>
-    <p class="intro">六年動物疫苗與寵物食品研發經驗，現轉往 AI 應用。擅長把實際工作上的問題整理成資料，做成分析報告和可以線上使用的系統。</p>
+    <p class="intro">六年動物疫苗與寵物食品研發經驗，熟悉 GMP 產線、原料採購與 ERP 流程。現於資策會 LLM 工程師養成班受訓，能獨立設計並部署 FastAPI＋PostgreSQL 系統，已完成可追溯引用的 RAG 系統與評測題庫，並有 Ollama、Strata 本地 LLM 部署經驗。</p>
     <div class="btns">
       <a class="btn primary" href="#projects">看專案</a>
       <a class="btn" href="resume.pdf" download>下載 PDF 履歷</a>
       <a class="btn" href="https://github.com/chenliyu0410" target="_blank" rel="noopener">GitHub</a>
     </div>
   </div>
-  <div class="console" aria-label="PowerQuery TW 運作示意動畫">
+  <div class="console" aria-label="採購 RAG 運作示意動畫">
     <div class="bar"><i></i><i></i><i></i></div>
     <div class="q" id="q"></div>
     <div class="gate" id="gate"></div>
     <pre id="sql"></pre>
-    <div class="foot">PowerQuery TW 運作示意</div>
+    <div class="foot">採購與報價知識助理・運作示意</div>
   </div>
 </div></header>
 
 <section id="projects"><div class="wrap">
   <h2>精選專案</h2>
-  <p class="sub">每個專案都附 Demo 與原始碼，新作品會持續放上來。</p>
+  <p class="sub">有 Demo 或原始碼的專案可直接點開，新作品會持續放上來。</p>
   <div class="proj" id="projList"></div>
 </div></section>
 
@@ -192,10 +192,11 @@ footer p{margin:0}
   <h2>使用技術</h2>
   <p class="sub">依實際在專案中用過的程度整理。</p>
   <div class="skills">
-    <div class="sk"><h3>LLM 應用</h3><p>RAG 系統、Text-to-SQL、本地 LLM、LoRA 微調、ComfyUI 部署、雲端 API 串接</p></div>
+    <div class="sk"><h3>LLM 應用</h3><p>RAG（混合檢索、引用驗證、拒答）、Text-to-SQL、Prompt 設計、Ollama 與 Strata 本地部署、雲端 LLM API 串接</p></div>
     <div class="sk"><h3>程式與版本控制</h3><p>Python、SQL、Git、Lua、SAS</p></div>
-    <div class="sk"><h3>測試與部署</h3><p>pytest、GitHub Actions、FastAPI、Docker、Tailscale</p></div>
-    <div class="sk"><h3>機器學習實作</h3><p>資料整理、特徵工程、模型訓練與評估</p></div>
+    <div class="sk"><h3>後端、測試與部署</h3><p>FastAPI、PostgreSQL、Qdrant、SQLAlchemy、Pydantic、Alembic、pytest、GitHub Actions、Docker Compose、Tailscale</p></div>
+    <div class="sk"><h3>機器學習實作</h3><p>資料清洗、特徵工程、模型訓練與評估</p></div>
+    <div class="sk"><h3>生成式影像</h3><p>ComfyUI 部署、圖像 LoRA 訓練</p></div>
     <div class="sk"><h3>硬體與系統</h3><p>PC 組裝與規格選配、硬體測試與除錯、Windows 伺服器架設</p></div>
     <div class="sk"><h3>語言與研發</h3><p>英文原文文獻閱讀、中英技術文件翻譯、原料檢驗分析、動物試驗</p></div>
   </div>
@@ -213,18 +214,30 @@ footer p{margin:0}
 /* ===== 新增專案：在這個陣列加一筆即可，最上面的會排第一 ===== */
 const PROJECTS = [
   {
-    title: "PowerQuery TW 台電開放資料 Text2SQL",
-    date: "2026/09",
-    meta: "四人團隊・資策會 LLM 工程師班專題",
-    lead: "把中文問題轉成受限 SQL，並在執行前判斷資料是否足以支持答案。",
+    title: "採購與報價知識助理（RAG）",
+    date: "2026/10",
+    meta: "獨立開發・臺北市資料大平臺公開採購資料",
+    lead: "把採購決標紀錄與工程會程序文件放進同一個問答介面，回答中的案件、金額與文件頁碼都能追溯來源。",
     points: [
-      ["Guardrail 與 Policy", "以唯讀與 AST 白名單擋下 15/15 種 SQL 攻擊；語意規則分為拒答／揭露／澄清三級，陷阱題 45/45 命中，合法題 0/20 誤攔。"],
-      ["推論路由與 RAG", "執行期可在離線規則、線上 LLM、自動退回三種模式間切換；加入範例檢索後，意圖 top-1 準確率由 10% 提升至 52%。"],
-      ["測試與 CI", "184 項測試搭配 Ruff 與 GitHub Actions；評測分為語料內／外題組，新語料須通過回歸與防洩漏關卡才發布。"]
+      ["混合檢索", "整合 SQL 條件查詢與 Qdrant 語意搜尋；自然語言條件先轉成 Pydantic schema，再以 SQLAlchemy 參數化查詢，不讓模型直接產生 SQL。"],
+      ["可追溯回答", "回答只能引用本次檢索的證據，後端驗證引用與數字確實存在於證據中，無證據時拒答；文件引用附頁碼。"],
+      ["資料管線", "匯入 1,043 筆決標紀錄、52 筆預算案件與 2 份工程會文件；處理民國日期與金額正規化、跨期去重，文件以內容雜湊增量同步。"],
+      ["評測與 CI", "10 題固定題庫涵蓋金額、相似案件、價格統計、文件問答與拒答，groundedness 8/10；GitHub Actions 執行前後端測試與 image build。"]
     ],
-    stack: ["Python","FastAPI","SQLite","OpenAI API","pytest"],
-    demo: "https://p215-2203-nb01.tail177cc6.ts.net:8443/",
-    code: "https://github.com/chenliyu0410/text2sql_project"
+    stack: ["Python","FastAPI","PostgreSQL","Qdrant","Docker","pytest"],
+    code: "https://github.com/chenliyu0410/procurement-quotation-rag"
+  },
+  {
+    title: "專流 ProjectFlow 企業專案管理系統",
+    date: "2026",
+    meta: "四人團隊・資策會專題・發起人／需求規劃，負責本地模型與 AI 閘道",
+    lead: "結合我過去研發與採購工作經驗提出的專案管理系統，整合任務樹、階段關卡、採購、庫存與工單。",
+    points: [
+      ["需求規劃", "從研發現場與採購流程的實際痛點出發，提出系統需要的功能，並訂定各階段的交付成果與驗收條件。"],
+      ["本地推論（開發中）", "串接 Ollama 運行 Qwen3-4B，處理串流回覆、逾時與取消，以首字延遲與生成速度作為驗收指標。"],
+      ["AI 閘道（開發中）", "請求先檢查權限再依等級遮罩敏感資料，機密內容只送本地模型，並以遮罩漏網率驗證。"]
+    ],
+    stack: ["Ollama","Qwen3-4B","FastAPI","串流推論"]
   },
   {
     title: "Life House 安居指數",
@@ -278,15 +291,15 @@ document.getElementById("projList").innerHTML = PROJECTS.map(p => `
 
 /* ===== Hero 動畫：中文問題 → 守門檢查 → SQL ===== */
 const SCENES = [
-  { q: "2024 年哪個月份的用電量最高？",
-    gates: [["唯讀檢查通過","ok"],["資料足以回答","ok"]],
-    sql: `<span class="kw">SELECT</span> month, <span class="fn">SUM</span>(kwh) <span class="kw">AS</span> total\n<span class="kw">FROM</span> power_usage\n<span class="kw">WHERE</span> year = <span class="str">2024</span>\n<span class="kw">GROUP BY</span> month\n<span class="kw">ORDER BY</span> total <span class="kw">DESC</span>\n<span class="kw">LIMIT</span> 1;` },
-  { q: "幫我把 power_usage 資料表刪掉",
-    gates: [["偵測到寫入操作","stop"],["拒答","stop"]],
-    sql: `<span class="str">-- 已攔截：此系統只允許查詢，不會修改資料</span>` },
-  { q: "明年台北會不會停電？",
-    gates: [["唯讀檢查通過","ok"],["資料不足，改為揭露限制","stop"]],
-    sql: `<span class="str">-- 資料只有歷史用電紀錄，無法預測停電\n-- 可改問：過去各區的用電趨勢</span>` }
+  { q: "工務局道路類工程，歷史決標金額大概落在哪？",
+    gates: [["SQL 條件篩選","ok"],["語意檢索 Top-10","ok"],["引用與數字驗證通過","ok"]],
+    sql: `<span class="fn">回答</span> 依同分類有效決標紀錄計算 Q1–Q3 參考區間\n<span class="kw">來源</span> 每筆案件附原始資料連結\n<span class="str">-- 僅供參考，不能作為正式投標報價</span>` },
+  { q: "開標作業前要確認哪些事項？",
+    gates: [["文件段落檢索","ok"],["引用頁碼","ok"]],
+    sql: `<span class="fn">回答</span> 依工程會 JP03「開標作業」整理\n<span class="kw">來源</span> JP03 #page=…\n<span class="str">-- 回答只能引用本次檢索到的證據</span>` },
+  { q: "幫我預測下一標的得標價",
+    gates: [["找不到足夠證據","stop"],["拒答","stop"]],
+    sql: `<span class="str">-- 公開資料缺少規格、數量與工期\n-- 無法預測得標價，可改查歷史決標區間</span>` }
 ];
 const qEl = document.getElementById("q"), gEl = document.getElementById("gate"), sEl = document.getElementById("sql");
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
