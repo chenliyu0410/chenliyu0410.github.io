@@ -132,7 +132,7 @@ footer p{margin:0}
       <img src="photo.jpg" alt="陳力瑜大頭照">
       <div><h1>陳力瑜</h1><p class="role">AI 應用工程師｜後端系統 × 產業落地</p></div>
     </div>
-    <p class="intro">六年動物疫苗與寵物食品研發經驗，熟悉 GMP 產線、原料採購與 ERP 流程。現於資策會 LLM 工程師養成班受訓，能獨立設計並部署 FastAPI＋PostgreSQL 系統，已完成可追溯引用的 RAG 系統與評測題庫，並有 Ollama、Strata 本地 LLM 部署經驗。</p>
+    <p class="intro">六年動物疫苗與寵物食品研發經驗，熟悉 GMP 產線、原料採購與 ERP 流程。現於資策會 LLM 工程師養成班受訓，能獨立設計並部署 FastAPI＋PostgreSQL 系統，已獨立完成可追溯引用的 RAG 系統並建立評測題庫，並有 Ollama、Strata 本地 LLM 部署經驗。</p>
     <div class="btns">
       <a class="btn primary" href="#projects">看專案</a>
       <a class="btn" href="resume.pdf" download>下載 PDF 履歷</a>
@@ -238,6 +238,21 @@ const PROJECTS = [
       ["AI 閘道（開發中）", "請求先檢查權限再依等級遮罩敏感資料，機密內容只送本地模型，並以遮罩漏網率驗證。"]
     ],
     stack: ["Ollama","Qwen3-4B","FastAPI","串流推論"]
+  },
+  {
+    title: "菜盤 Caipan 農產批發行情與買點建議",
+    date: "2026/10",
+    meta: "獨立開發・農業部農產品交易行情開放資料・全程以 Claude Code 協作",
+    lead: "把蔬果批發價當行情來看：每天自動抓農業部拍賣資料，算出技術指標與價格百分位，列出今天值得買的品項，以 PWA 發佈，可直接加到手機桌面並離線開啟。",
+    points: [
+      ["買點評分", "涵蓋 34 種品項 × 7 個批發市場，以 MA5／MA20、RSI(14) 與近 60 日價格百分位計分產出推薦榜；前端提供 K 線圖、跑馬燈大盤與智慧標籤篩選。"],
+      ["自動化更新", "GitHub Actions 每日 4 次（台灣時間 08:00／12:00／15:00／18:00）抓取、計算、提交資料並發佈到 GitHub Pages，零伺服器成本；爬蟲與指標只用 Python 標準函式庫，無外部相依。"],
+      ["CI 除錯", "CI 連續抓不到資料時用對照實驗定位問題：4 種 runner OS 與 12 個海外節點的 TCP 測試全數逾時、台灣本機正常取得資料，確認是來源端封鎖海外 IP，而非程式或映像檔問題。"],
+      ["Cloud Run 中繼", "依診斷結果在 asia-east1 部署最小化唯讀轉發器（只接受 GET、單一白名單網域、共用密鑰驗證），讓境外 CI 恢復每日更新；pytest 以 mock 驗證逾時重試、失敗回報與代理切換。"]
+    ],
+    stack: ["Python","GitHub Actions","PWA","Service Worker","Cloud Run","pytest"],
+    demo: "https://chenliyu0410.github.io/caipan/",
+    code: "https://github.com/chenliyu0410/caipan"
   },
   {
     title: "Life House 安居指數",
