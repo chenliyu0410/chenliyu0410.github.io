@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>陳力瑜｜AI 應用工程師</title>
-<meta name="description" content="陳力瑜的作品集：本機 RAG 與 Text2SQL、LINE AI 客服、後端系統、資料分析專案與履歷。">
+<meta name="description" content="陳力瑜｜六年研發轉 AI 應用工程師。本機 RAG 與 Text2SQL、LINE AI 客服、地端部署與資料分析專案，以及我對 AI 落地的幾個看法。">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +36,8 @@ nav b{font-size:17px;letter-spacing:.08em}
 nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
 nav ul a{color:var(--ink);text-decoration:none;font-size:15px}
 nav ul a:hover{color:var(--accent)}
-@media (max-width:640px){nav ul{gap:14px} nav ul li:nth-child(3){display:none}}
+@media (max-width:640px){nav ul{gap:13px;font-size:14px}
+  nav ul li:nth-child(3),nav ul li:nth-child(5){display:none}}
 
 /* hero */
 .hero{padding:72px 0 56px}
@@ -116,11 +117,50 @@ h2{font-size:28px;font-weight:900;margin:0 0 6px;letter-spacing:.04em}
 .job ul{margin:6px 0 0;padding-left:1.1em}
 .job li{margin:4px 0}
 
+/* about */
+.lede{font-size:20px;font-weight:500;line-height:1.7;max-width:44em;margin:0 0 34px;
+  border-left:4px solid var(--accent);padding-left:20px}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:28px 46px}
+@media (max-width:760px){.about{grid-template-columns:1fr;gap:22px}}
+.about .blk h3{font-size:15px;margin:0 0 7px;color:var(--blue);letter-spacing:.06em}
+.about .blk p{margin:0}
+.about .blk p + p{margin-top:10px}
+
+/* views */
+.views{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:760px){.views{grid-template-columns:1fr}}
+.v{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 25px}
+.v h3{font-size:18.5px;margin:0 0 10px;line-height:1.5}
+.v h3::before{content:"「";color:var(--accent)}
+.v h3::after{content:"」";color:var(--accent)}
+.v p{margin:0;color:var(--muted);font-size:15px}
+.v p b{color:var(--ink)}
+
+/* project extras */
+.why{background:var(--accent-soft);border-radius:9px;padding:11px 15px;margin:0 0 13px;font-size:14.5px}
+.why b{color:var(--ink);letter-spacing:.04em}
+.p.mini{padding:20px 24px}
+.p.mini h3{font-size:19px}
+details.more{margin-top:10px}
+details.more summary{cursor:pointer;font-size:14px;color:var(--blue);font-weight:700;width:fit-content}
+details.more summary:hover{color:var(--accent)}
+details.more ul{margin-top:10px}
+.minihead{font-size:20px;font-weight:900;letter-spacing:.04em;margin:44px 0 6px}
+.minihead + .sub{margin-bottom:22px}
+
 /* skills */
+.skgroup{margin-bottom:38px}
+.skgroup:last-child{margin-bottom:0}
+.skgroup > h3{font-size:18px;font-weight:900;margin:0 0 4px;letter-spacing:.04em}
+.skgroup > .note{margin:0 0 18px;color:var(--muted);font-size:14.5px}
 .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
 .sk{border-top:3px solid var(--ink);padding-top:10px}
 .sk h3{font-size:16px;margin:0 0 6px}
 .sk p{margin:0;color:var(--muted);font-size:15px}
+.skgroup.domain .sk{border-top-color:var(--accent)}
+.takeaway{margin:10px 0 0;font-size:14.5px;color:var(--muted);
+  border-left:3px solid var(--accent);padding-left:12px}
+.takeaway b{color:var(--ink)}
 
 footer{padding:48px 0 64px;border-top:1px solid var(--line);margin-top:24px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;align-items:center}
@@ -131,7 +171,7 @@ footer p{margin:0}
 </head>
 <body>
 <nav><div class="wrap"><b>陳力瑜</b>
-<ul><li><a href="#projects">專案</a></li><li><a href="#experience">經歷</a></li><li><a href="#skills">技能</a></li><li><a href="#contact">聯絡</a></li></ul></div></nav>
+<ul><li><a href="#about">關於我</a></li><li><a href="#projects">專案</a></li><li><a href="#views">我的觀點</a></li><li><a href="#experience">經歷</a></li><li><a href="#skills">技能</a></li><li><a href="#contact">聯絡</a></li></ul></div></nav>
 
 <header class="hero"><div class="wrap grid">
   <div>
@@ -139,7 +179,7 @@ footer p{margin:0}
       <img src="photo.jpg" alt="陳力瑜大頭照">
       <div><h1>陳力瑜</h1><p class="role">AI 應用工程師｜後端系統 × 產業落地</p></div>
     </div>
-    <p class="intro">六年動物疫苗與寵物食品研發經驗，熟悉 GMP 產線、原料採購與 ERP 流程。現於資策會 LLM 工程師養成班受訓，能獨立設計並部署 FastAPI＋PostgreSQL 系統；已完成可追溯引用的 RAG 系統與評測題庫，並在單張 12GB 顯卡上做出全本機的 LINE AI 客服（RAG＋Text2SQL）。</p>
+    <p class="intro">我做了六年研發：動物疫苗、寵物食品配方、原料採購與法規。真正讓我開始寫程式的，是受不了每次調配方都要重算一次 Excel，乾脆自己做了一套系統取代它。<br><br>現在我做的事其實沒變——把現場「這明明可以自動化」的麻煩變成一套跑得動、而且說得出根據的系統。只是工具從 Excel 換成了 RAG、Text2SQL 和一張自己的顯示卡。</p>
     <div class="btns">
       <a class="btn primary" href="#projects">看專案</a>
       <a class="btn" href="https://lin.ee/nteiASQ" target="_blank" rel="noopener">加 LINE 試用客服機器人</a>
@@ -156,15 +196,71 @@ footer p{margin:0}
   </div>
 </div></header>
 
+<section id="about"><div class="wrap">
+  <h2>關於我</h2>
+  <p class="sub">三分鐘認識我這個人，而不只是我的技術清單。</p>
+
+  <p class="lede">我不是從資工系畢業後一路寫程式過來的。我是先在 GMP 疫苗廠和寵物食品公司待了六年，被現場的問題逼著去寫程式，才發現這件事我做得來、也做得開心。</p>
+
+  <div class="about">
+    <div class="blk">
+      <h3>我從哪裡來</h3>
+      <p>大學念生物技術與動物科學，畢業後進家畜衛生試驗所做動物疫苗，在 GMP 廠區跑試驗、做分子選殖與凍乾；後來到汪喵星球做寵物食品研發，四年半開發了 30 款產品，同時負責原料進口、採購合約與法規標示。</p>
+      <p>這六年把兩個習慣刻進我身上：<b>任何宣稱都要有數據撐著</b>，還有<b>流程上任何一步錯了，後面全錯</b>。配方算錯 0.1%，整批貨就不能上市。</p>
+    </div>
+    <div class="blk">
+      <h3>我為什麼開始寫程式</h3>
+      <p>公司原本用 Excel 算營養成分，每改一次配方就要重算一輪，又慢又容易出錯。我把原料營養資料建成資料庫，自己做了一套網頁版計算系統取代它。</p>
+      <p>那是我第一次發現：我真正想解決的從來不是「技術問題」，而是<b>有人每天在重複做一件不該由人做的事</b>。從那之後我就沒停下來過。</p>
+    </div>
+    <div class="blk">
+      <h3>我現在做什麼</h3>
+      <p>專注在<b>把大型語言模型真的裝進一間公司裡</b>：本機 RAG、Text-to-SQL、地端部署。目前在資策會 LLM 工程師養成班受訓，同時自己做了六個專案，從一張 12GB 顯卡上的 LINE AI 客服，到一台主機跑完的企業專案管理系統。</p>
+      <p>我在意的不是模型多大，是<b>答案能不能追溯、不知道時會不會承認</b>。</p>
+    </div>
+    <div class="blk">
+      <h3>我想找什麼樣的位置</h3>
+      <p>需要有人同時站在<b>產業現場</b>和<b>AI 技術</b>中間的位置。我習慣先弄懂業務怎麼跑、誰會用、在哪裡卡住，再決定要不要上模型、上哪一種。</p>
+      <p>寫程式這件事 AI 已經幫得上很多忙；但<b>判斷一個答案在這個產業裡合不合理</b>，目前還是得有人來做。那是我六年研發換來的東西。</p>
+    </div>
+  </div>
+</div></section>
+
 <section id="projects"><div class="wrap">
   <h2>精選專案</h2>
-  <p class="sub">有 Demo 或原始碼的專案可直接點開，新作品會持續放上來。</p>
+  <p class="sub">三個主要作品放在前面，其餘的收起來，想看再展開。</p>
   <div class="proj" id="projList"></div>
+  <h3 class="minihead">其他專案</h3>
+  <p class="sub">同樣有 Demo 或原始碼，點「看細節」可以展開。</p>
+  <div class="proj" id="projListMini"></div>
+</div></section>
+
+<section id="views"><div class="wrap">
+  <h2>我的觀點</h2>
+  <p class="sub">做完這幾個專案之後，我對 AI 落地這件事的幾個看法——都是踩過才寫的。</p>
+  <div class="views">
+    <div class="v">
+      <h3>生成不難，難的是知道什麼時候該閉嘴</h3>
+      <p>現在隨便一個模型都寫得出一段看起來很專業的回答。所以我每個 RAG 專案都先做同一件事：<b>證據不夠就拒答</b>。採購助理的 10 題評測裡有一題是刻意問「幫我預測下一標的得標價」，正確答案就是不要回答。能不能守住那一題，比多答對兩題更能決定這套系統敢不敢給人用。</p>
+    </div>
+    <div class="v">
+      <h3>選模型不是看參數表，是看你那張顯卡跑你的題目</h3>
+      <p>ProjectFlow 原本用 3B 模型，在我們自己寫的 14 題 RAG 題庫上會編造數字和理由（9/14）；換成 qwen3 4B 之後 RAG 與 Text2SQL <b>全對（14/14、24/24）</b>，代價是首字多等約 6 秒。這種取捨排行榜不會告訴你，<b>只有拿自己的資料、在自己的硬體上實測才看得出來</b>。</p>
+    </div>
+    <div class="v">
+      <h3>資料不出公司，對很多產業是前提，不是加分</h3>
+      <p>我待過 GMP 廠和配方單位，知道有些東西就是不能往外送。所以我的作品幾乎都是本機或地端：LINE 客服跑在單張 12GB 顯卡上，ProjectFlow 整套裝進一台 Windows 主機、<b>執行時不連外網</b>。順帶的好處是雲端 AI API 費用是零——但那是副產品，真正的理由是資料不能出去。</p>
+    </div>
+    <div class="v">
+      <h3>懂領域，才知道答案哪裡不對</h3>
+      <p>AI 可以把 SQL 和配方表都寫出來，但它不會知道「這個添加量在台灣過不了法規」。<b>六年研發留給我的不是會做哪些實驗，是看到一個結果能判斷它合不合理</b>。我在寵食進口分析裡設了 41 項自動檢查，不是因為我熱愛寫測試，是因為我知道數字錯了會發生什麼事。</p>
+    </div>
+  </div>
 </div></section>
 
 <section id="experience"><div class="wrap">
   <h2>工作經歷</h2>
-  <p class="sub">研發現場的資料整理與流程改善，是我轉往 AI 應用的起點。</p>
+  <p class="sub">研發現場的資料整理與流程改善，是我轉往 AI 應用的起點。每段經歷後面都寫了它實際留給我什麼。</p>
   <div class="tl">
     <div class="job">
       <div class="when">2022/02 – 2026/06</div>
@@ -175,6 +271,7 @@ footer p{margin:0}
         <li><b>原料與法規：</b>研究各類機能原料的用量與安全性，並依配方計算添加量；訂定原料驗收規格，讓成分標示同時符合 AAFCO 與台灣寵物食品法規。</li>
         <li><b>進口與採購：</b>負責原料進口與測試、撰寫進口採購合約並以 ERP 處理相關作業；協助廠區設備採購規劃，尋找並接洽機器廠商與代工廠。</li>
       </ul>
+      <p class="takeaway"><b>這四年半給我的：</b>把一個模糊的需求談成可執行規格的能力，以及對數字的潔癖。ProjectFlow 的需求規劃之所以寫得出來，是因為工單、採購與庫存會卡在哪裡，我自己被卡過。</p>
     </div>
     <div class="job">
       <div class="when">2020/02 – 2022/02</div>
@@ -184,6 +281,7 @@ footer p{margin:0}
         <li>在 GMP 廠區參與動物疫苗開發與生產，執行動物試驗、PCR、分子選殖與凍乾操作。</li>
         <li>參與單位預算申請與規劃，提出採購標案申請並接洽廠商。</li>
       </ul>
+      <p class="takeaway"><b>這兩年給我的：</b>GMP 廠的規矩是「每一步都要留紀錄、每個結論都要有實驗支持」。我現在每個 AI 專案都要先有一份評測題庫才敢說做好了，源頭就在這裡。</p>
     </div>
     <div class="job">
       <div class="when">其他經歷</div>
@@ -192,28 +290,47 @@ footer p{margin:0}
         <li><b>伺服器架設與維運：</b>架設並維運 <b>8 台</b>伺服器，開發 Lua 任務腳本與 Python Discord 回報系統。</li>
         <li><b>電腦硬體：</b><b>10 年</b>自行組裝電腦經驗，熟悉硬體規格選配、維修測試與除錯；協助他人組裝超過 <b>20 台</b>。</li>
       </ul>
+      <p class="takeaway"><b>這段興趣給我的：</b>八台伺服器和二十台電腦，讓我做地端部署時不怕碰硬體。VRAM 載入順序、冷啟動 49 秒、顯卡該選哪張——這類問題我知道要往哪裡找。</p>
     </div>
   </div>
 </div></section>
 
 <section id="skills"><div class="wrap">
-  <h2>使用技術</h2>
-  <p class="sub">依實際在專案中用過的程度整理。</p>
-  <div class="skills">
-    <div class="sk"><h3>LLM 應用</h3><p>RAG（混合檢索、引用驗證、拒答）、Text-to-SQL、Prompt 設計、Ollama 與 Strata 本地部署、模型選型與基準評測、雲端 LLM API 串接</p></div>
-    <div class="sk"><h3>程式與版本控制</h3><p>Python、SQL、Git、Lua、SAS</p></div>
-    <div class="sk"><h3>後端、測試與部署</h3><p>FastAPI、PostgreSQL、SQLite、Qdrant、Chroma、SQLAlchemy、Pydantic、Alembic、pytest、GitHub Actions、Docker Compose、Tailscale</p></div>
-    <div class="sk"><h3>機器學習實作</h3><p>資料清洗、特徵工程、模型訓練與評估</p></div>
-    <div class="sk"><h3>整合與自動化</h3><p>LINE Messaging API（Webhook、Reply／Push、群組 mention）、n8n 流程自動化、ngrok</p></div>
-    <div class="sk"><h3>生成式影像</h3><p>ComfyUI 部署、圖像 LoRA 訓練</p></div>
-    <div class="sk"><h3>硬體與系統</h3><p>PC 組裝與規格選配、硬體測試與除錯、Windows 伺服器架設</p></div>
-    <div class="sk"><h3>語言與研發</h3><p>英文原文文獻閱讀、中英技術文件翻譯、原料檢驗分析、動物試驗</p></div>
+  <h2>兩棵技能樹</h2>
+  <p class="sub">技術是我後來長出來的那一棵；研發現場那棵，是我跟其他轉職者不一樣的地方。</p>
+
+  <div class="skgroup">
+    <h3>一、AI 與軟體工程</h3>
+    <p class="note">依實際在專案中用過的程度整理，沒用過的不寫。</p>
+    <div class="skills">
+      <div class="sk"><h3>LLM 應用</h3><p>RAG（混合檢索、引用驗證、拒答）、Text-to-SQL、Prompt 設計、Ollama 與 Strata 本地部署、模型選型與基準評測、雲端 LLM API 串接</p></div>
+      <div class="sk"><h3>程式與版本控制</h3><p>Python、SQL、Git、Lua、SAS</p></div>
+      <div class="sk"><h3>後端、測試與部署</h3><p>FastAPI、PostgreSQL、SQLite、Qdrant、Chroma、SQLAlchemy、Pydantic、Alembic、pytest、GitHub Actions、Docker Compose、Tailscale</p></div>
+      <div class="sk"><h3>機器學習實作</h3><p>資料清洗、特徵工程、模型訓練與評估</p></div>
+      <div class="sk"><h3>整合與自動化</h3><p>LINE Messaging API（Webhook、Reply／Push、群組 mention）、n8n 流程自動化、ngrok</p></div>
+      <div class="sk"><h3>生成式影像</h3><p>ComfyUI 部署、圖像 LoRA 訓練</p></div>
+      <div class="sk"><h3>硬體與系統</h3><p>PC 組裝與規格選配、硬體測試與除錯、Windows 伺服器架設</p></div>
+    </div>
+  </div>
+
+  <div class="skgroup domain">
+    <h3>二、六年研發現場帶來的</h3>
+    <p class="note">這些不會出現在大部分工程師的履歷上，但在做產業 AI 的時候，常常是決定做不做得起來的那一半。</p>
+    <div class="skills">
+      <div class="sk"><h3>法規與品保</h3><p>AAFCO 與台灣寵物食品法規、成分標示合規、原料驗收規格訂定、GMP 廠區作業規範</p></div>
+      <div class="sk"><h3>配方與產品開發</h3><p>30 款產品從 0 到上市、罐頭／軟包裝／凍乾三種製程、機能原料用量與安全性評估、量產放大</p></div>
+      <div class="sk"><h3>採購與供應鏈</h3><p>原料進口與測試、進口採購合約撰寫、ERP 作業、設備採購規劃、機器廠商與代工廠接洽、政府採購標案</p></div>
+      <div class="sk"><h3>實驗設計與數據判讀</h3><p>試驗規劃與對照設計、動物試驗、PCR 與分子選殖、原料檢驗分析——用在 CI 除錯時一樣管用</p></div>
+      <div class="sk"><h3>需求訪談與流程拆解</h3><p>把產線與採購的口語需求談成可驗收的規格，訂定各階段交付成果與驗收條件（ProjectFlow 即由此而來）</p></div>
+      <div class="sk"><h3>溝通與展示</h3><p>英文原文文獻閱讀、中英技術文件翻譯、跨部門協作、黑客松上台簡報與 Demo</p></div>
+    </div>
   </div>
 </div></section>
 
 <footer id="contact"><div class="wrap">
   <div>
     <h2 style="font-size:22px">聯絡我</h2>
+    <p style="color:var(--muted);font-size:15px;max-width:30em">如果你的團隊正在把 AI 放進某個真實的業務流程裡，而且卡在「技術做得出來，但現場不買單」，我大概幫得上忙。歡迎聊聊。</p>
     <p><a href="mailto:chenliyu0410@gmail.com">chenliyu0410@gmail.com</a></p>
   </div>
   <p style="color:var(--muted);font-size:14px">國立宜蘭大學 生物技術與動物科學系 學士<br>資策會 AI 大型語言模型 LLM 工程師就業養成班（2026 受訓中）</p>
@@ -225,8 +342,10 @@ const PROJECTS = [
   {
     title: "LINE AI 客服機器人｜本機 RAG + Text2SQL",
     date: "2026/11",
+    featured: true,
     bot: "line-bot.jpg",
     meta: "獨立開發・AI 課程教材知識庫・RTX 3060 12GB 單機部署",
+    why: "班上 600 多份教材，同學問問題常常想不起來在哪一份的第幾頁。我想親手驗證一件事：不花任何雲端 API 的錢，一張 12GB 顯卡到底撐不撐得起一個「會附出處、不會唬爛」的客服。",
     lead: "在一台個人電腦上把 600 多份課程教材做成可查詢的知識庫，於 LINE 一對一與群組回答問題並附上出處；答不出來時自動寄信轉交真人，全程本機執行，零雲端 AI API 費用。",
     points: [
       ["本機 RAG 客服", "FastAPI＋Ollama（qwen3.5 9B）＋Chroma 部署在單張 12GB 顯卡；回答只根據檢索到的教材並標註引用來源，證據不足時輸出拒答訊號，一般問題 4–9 秒回覆。"],
@@ -246,7 +365,8 @@ const PROJECTS = [
     title: "採購與報價知識助理（RAG）",
     date: "2026/10",
     meta: "獨立開發・臺北市資料大平臺公開採購資料",
-    lead: "把採購決標紀錄與工程會程序文件放進同一個問答介面，回答中的案件、金額與文件頁碼都能追溯來源。",
+    why: "前公司的進口採購合約是我在寫的，很清楚「找一份類似的舊案子來比價」有多花時間。這個專案也是我第一次認真做拒答評測。",
+    lead:"把採購決標紀錄與工程會程序文件放進同一個問答介面，回答中的案件、金額與文件頁碼都能追溯來源。",
     points: [
       ["混合檢索", "整合 SQL 條件查詢與 Qdrant 語意搜尋；自然語言條件先轉成 Pydantic schema，再以 SQLAlchemy 參數化查詢，不讓模型直接產生 SQL。"],
       ["可追溯回答", "回答只能引用本次檢索的證據，後端驗證引用與數字確實存在於證據中，無證據時拒答；文件引用附頁碼。"],
@@ -259,8 +379,10 @@ const PROJECTS = [
   {
     title: "專流 ProjectFlow 企業專案管理系統",
     date: "2026/11",
+    featured: true,
     meta: "四人團隊・資策會專題・發起人／需求規劃，負責模組 04「本地模型與地端部署」",
-    lead: "結合我過去研發與採購工作經驗提出的專案管理系統，整合任務樹、階段關卡、採購、庫存與工單；AI 與資料都跑在公司自己的一台主機上，執行時不連外網。",
+    why: "這套系統的需求是我從自己待過的研發與採購現場寫出來的——工單會卡在哪、庫存對不上會發生什麼事，我都被卡過。我的角色是把那些痛點翻成別人可以實作的規格，然後證明它能在一台公司自己的主機上跑完。",
+    lead:"結合我過去研發與採購工作經驗提出的專案管理系統，整合任務樹、階段關卡、採購、庫存與工單；AI 與資料都跑在公司自己的一台主機上，執行時不連外網。",
     points: [
       ["需求規劃", "從研發現場與採購流程的實際痛點出發，把產線需求轉成節點、相依與審核規則；由我先寫需求、審規格，通過後才進入實作與測試，並訂定各階段的交付成果與驗收條件。"],
       ["本地模型選型", "在一張 GTX 1050 Ti 4GB 上實測 6 個模型的 GPU 層數、生成速度與讀寫秒數，再以專案自己的 14 題 RAG 與自寫的 24 題 Text2SQL 比較 5 個模型：原用的 3B 會編造數字與原因（9/14），改用 qwen3 4B 後兩項全對（14/14、24/24），代價是首字多等約 6 秒。"],
@@ -275,7 +397,8 @@ const PROJECTS = [
     title: "菜盤 Caipan 農產批發行情與買點建議",
     date: "2026/10",
     meta: "獨立開發・農業部農產品交易行情開放資料・全程以 Claude Code 協作",
-    lead: "把蔬果批發價當行情來看：每天自動抓農業部拍賣資料，算出技術指標與價格百分位，列出今天值得買的品項，以 PWA 發佈，可直接加到手機桌面並離線開啟。",
+    why: "做配方的時候每天在看原料報價，我一直想知道蔬果價格能不能像看股票一樣看出買點。最後學到最多的反而不是指標，是 CI 連續失敗時怎麼用對照實驗找出真正的原因。",
+    lead:"把蔬果批發價當行情來看：每天自動抓農業部拍賣資料，算出技術指標與價格百分位，列出今天值得買的品項，以 PWA 發佈，可直接加到手機桌面並離線開啟。",
     points: [
       ["買點評分", "涵蓋 34 種品項 × 7 個批發市場，以 MA5／MA20、RSI(14) 與近 60 日價格百分位計分產出推薦榜；前端提供 K 線圖、跑馬燈大盤與智慧標籤篩選。"],
       ["自動化更新", "GitHub Actions 每日 4 次（台灣時間 08:00／12:00／15:00／18:00）抓取、計算、提交資料並發佈到 GitHub Pages，零伺服器成本；爬蟲與指標只用 Python 標準函式庫，無外部相依。"],
@@ -289,7 +412,9 @@ const PROJECTS = [
   {
     title: "Life House 安居指數",
     date: "2026/09",
-    award: "🏆 BUILDMODE GenAI Hackathon 2026｜前 10 名／160 組參賽隊伍",
+    featured: true,
+    why: "第一次參加黑客松。我學到的不是寫得多快，是在時間不夠時決定哪些功能不要做——以及怎麼把 23 萬筆事故資料，講成一句「你家這條路安不安全」讓評審聽得懂。",
+    award:"🏆 BUILDMODE GenAI Hackathon 2026｜前 10 名／160 組參賽隊伍",
     meta: "主辦：FUTUREMODE × SITCON・AI for Everyday Life 賽道・三人團隊",
     lead: "整合桃園市約 23 萬件交通事故，查詢住家周邊 500 公尺步行生活圈的事故熱點與安全百分位。",
     points: [
@@ -306,7 +431,8 @@ const PROJECTS = [
     title: "台灣寵物食品進口精緻化分析",
     date: "2026/09",
     meta: "獨立開發・聯合國 UN Comtrade 十年貿易資料",
-    lead: "用貿易數據回答市場是否在升級、該跟誰買、該賣去哪。",
+    why: "這是我最熟的產業。我想用資料驗證自己做了四年半的直覺：市場真的在往高價走嗎？還是只是通膨？結果證明直覺是對的，但理由跟我原本想的不一樣。",
+    lead:"用貿易數據回答市場是否在升級、該跟誰買、該賣去哪。",
     points: [
       ["市場趨勢", "扣除通膨後，進口寵物食品單價每年仍上漲約 3%；逐一排除物價、原料成本等因素，確認九成漲幅來自產品變高級。"],
       ["採購建議", "把 17 個進口來源國依特性分組，整理出優先採購名單；替全球市場評分時，一併標出有法規門檻的國家。"],
@@ -319,23 +445,47 @@ const PROJECTS = [
 ];
 
 const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-document.getElementById("projList").innerHTML = PROJECTS.map(p => `
-  <article class="p">
-    <div>
-      <h3>${p.bot ? `<img class="bot" src="${p.bot}" alt="">` : ""}${esc(p.title)}</h3>
-      ${p.award ? `<div class="award">${esc(p.award)}</div>` : ""}
-      <p class="meta">${esc(p.meta)}｜${esc(p.date)}</p>
-      <p class="lead">${esc(p.lead)}</p>
-      <ul>${p.points.map(([k,v]) => `<li><b>${esc(k)}：</b>${esc(v)}</li>`).join("")}</ul>
-    </div>
+const bullets = p => `<ul>${p.points.map(([k,v]) => `<li><b>${esc(k)}：</b>${esc(v)}</li>`).join("")}</ul>`;
+const side = p => `
     <div class="side">
       <div class="stack">${p.stack.map(s => `<span>${esc(s)}</span>`).join("")}</div>
       ${p.demo ? `<a class="btn primary" href="${p.demo}" target="_blank" rel="noopener">${esc(p.demoLabel || "開啟 Demo")}</a>` : ""}
       ${p.code ? `<a class="btn" href="${p.code}" target="_blank" rel="noopener">原始碼</a>` : ""}
       ${p.qr ? `<div class="qrbox"><img src="${p.qr}" alt="LINE 官方帳號加好友 QR code" loading="lazy"><b>${esc(p.qrId || "")}</b></div>` : ""}
       ${p.demoNote ? `<small>${esc(p.demoNote)}</small>` : ""}
-    </div>
-  </article>`).join("");
+    </div>`;
+
+const card = p => `
+  <article class="p">
+    <div>
+      <h3>${p.bot ? `<img class="bot" src="${p.bot}" alt="">` : ""}${esc(p.title)}</h3>
+      ${p.award ? `<div class="award">${esc(p.award)}</div>` : ""}
+      <p class="meta">${esc(p.meta)}｜${esc(p.date)}</p>
+      ${p.why ? `<p class="why"><b>為什麼做這個：</b>${esc(p.why)}</p>` : ""}
+      <p class="lead">${esc(p.lead)}</p>
+      ${bullets(p)}
+    </div>${side(p)}
+  </article>`;
+
+const miniCard = p => `
+  <article class="p mini">
+    <div>
+      <h3>${esc(p.title)}</h3>
+      ${p.award ? `<div class="award">${esc(p.award)}</div>` : ""}
+      <p class="meta">${esc(p.meta)}｜${esc(p.date)}</p>
+      <p class="lead">${esc(p.lead)}</p>
+      <details class="more">
+        <summary>看細節</summary>
+        ${p.why ? `<p class="why"><b>為什麼做這個：</b>${esc(p.why)}</p>` : ""}
+        ${bullets(p)}
+      </details>
+    </div>${side(p)}
+  </article>`;
+
+document.getElementById("projList").innerHTML =
+  PROJECTS.filter(p => p.featured).map(card).join("");
+document.getElementById("projListMini").innerHTML =
+  PROJECTS.filter(p => !p.featured).map(miniCard).join("");
 
 /* ===== Hero 動畫：中文問題 → 守門檢查 → SQL ===== */
 const SCENES = [
