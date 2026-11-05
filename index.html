@@ -147,12 +147,12 @@ footer p{margin:0}
       <a class="btn" href="https://github.com/chenliyu0410" target="_blank" rel="noopener">GitHub</a>
     </div>
   </div>
-  <div class="console" aria-label="採購 RAG 運作示意動畫">
+  <div class="console" aria-label="AI 問答系統運作示意動畫">
     <div class="bar"><i></i><i></i><i></i></div>
     <div class="q" id="q"></div>
     <div class="gate" id="gate"></div>
     <pre id="sql"></pre>
-    <div class="foot">採購與報價知識助理・運作示意</div>
+    <div class="foot" id="foot">LINE AI 客服・實際對話</div>
   </div>
 </div></header>
 
@@ -339,17 +339,49 @@ document.getElementById("projList").innerHTML = PROJECTS.map(p => `
 
 /* ===== Hero 動畫：中文問題 → 守門檢查 → SQL ===== */
 const SCENES = [
+  { q: "rag 的切片過大怎麼辦",
+    foot: "LINE AI 客服・實際對話",
+    gates: [["語意檢索 Top-5","ok"],["距離門檻 ≤ 0.5","ok"],["引用來源驗證","ok"]],
+    sql: `<span class="fn">回答</span> 先依文件既有結構（條、節、標題）切，不要盲目按字數
+<span class="kw">來源</span> 企業級 RAG_教學簡報 §切片的兩難：切太大不準，切太小不全
+<span class="str">-- 表格被讀成一長串文字，欄位對應就會斷裂</span>` },
+  { q: "RAG 召回率太低怎麼辦",
+    foot: "LINE AI 客服・實際對話",
+    gates: [["語意檢索","ok"],["Rerank 精選","ok"],["引用來源驗證","ok"]],
+    sql: `<span class="fn">回答</span> 提高 Top-K、加上 Rerank 重排序，再做查詢改寫
+<span class="kw">來源</span> 企業級 RAG_教學簡報 §Rerank：海選之後要有精選
+<span class="str">-- 模擬器實測：召回率 33% → 63%</span>` },
   { q: "工務局道路類工程，歷史決標金額大概落在哪？",
+    foot: "採購與報價知識助理・運作示意",
     gates: [["SQL 條件篩選","ok"],["語意檢索 Top-10","ok"],["引用與數字驗證通過","ok"]],
-    sql: `<span class="fn">回答</span> 依同分類有效決標紀錄計算 Q1–Q3 參考區間\n<span class="kw">來源</span> 每筆案件附原始資料連結\n<span class="str">-- 僅供參考，不能作為正式投標報價</span>` },
+    sql: `<span class="fn">回答</span> 依同分類有效決標紀錄計算 Q1–Q3 參考區間
+<span class="kw">來源</span> 每筆案件附原始資料連結
+<span class="str">-- 僅供參考，不能作為正式投標報價</span>` },
+  { q: "@LAiyu 過擬合怎麼處理",
+    foot: "LINE AI 客服・實際對話（群組）",
+    gates: [["群組 @ 判定","ok"],["語意檢索 Top-5","ok"],["引用來源驗證","ok"]],
+    sql: `<span class="fn">回答</span> 限制葉節點樣本數、限制樹的最大深度，神經網路用 Dropout
+<span class="kw">來源</span> 決策樹實戰_教學版.ipynb 儲存格 19、神經網路_Day1.pdf p.30
+<span class="str">-- 群組中只有被 @ 才回覆，並引用提問者的訊息</span>` },
   { q: "開標作業前要確認哪些事項？",
+    foot: "採購與報價知識助理・運作示意",
     gates: [["文件段落檢索","ok"],["引用頁碼","ok"]],
-    sql: `<span class="fn">回答</span> 依工程會 JP03「開標作業」整理\n<span class="kw">來源</span> JP03 #page=…\n<span class="str">-- 回答只能引用本次檢索到的證據</span>` },
+    sql: `<span class="fn">回答</span> 依工程會 JP03「開標作業」整理
+<span class="kw">來源</span> JP03 #page=…
+<span class="str">-- 回答只能引用本次檢索到的證據</span>` },
+  { q: "資料集裡歌曲數最多的歌手是誰？",
+    foot: "LINE AI 客服・Text2SQL 實測",
+    gates: [["資料表語意檢索","ok"],["唯讀授權器＋逾時","ok"],["SQL 執行成功","ok"]],
+    sql: `<span class="kw">SELECT</span> artist_name, <span class="fn">COUNT</span>(*) … <span class="kw">ORDER BY</span> 2 <span class="kw">DESC LIMIT</span> 1
+<span class="fn">回答</span> Michael Jackson，194 首
+<span class="str">-- 只允許 SELECT／WITH，空結果會帶著回饋自動重寫</span>` },
   { q: "幫我預測下一標的得標價",
+    foot: "採購與報價知識助理・運作示意",
     gates: [["找不到足夠證據","stop"],["拒答","stop"]],
-    sql: `<span class="str">-- 公開資料缺少規格、數量與工期\n-- 無法預測得標價，可改查歷史決標區間</span>` }
+    sql: `<span class="str">-- 公開資料缺少規格、數量與工期
+-- 無法預測得標價，可改查歷史決標區間</span>` }
 ];
-const qEl = document.getElementById("q"), gEl = document.getElementById("gate"), sEl = document.getElementById("sql");
+const qEl = document.getElementById("q"), gEl = document.getElementById("gate"), sEl = document.getElementById("sql"), fEl = document.getElementById("foot");
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const wait = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
 
@@ -373,6 +405,7 @@ async function loop(){
   let i = 0;
   while (true){
     const s = SCENES[i % SCENES.length];
+    fEl.textContent = s.foot;
     gEl.innerHTML = s.gates.map(([t,c]) => `<span class="${c}">${t}</span>`).join("");
     sEl.innerHTML = "";
     await typeText(qEl, s.q, 70);
