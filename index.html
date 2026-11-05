@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>陳力瑜｜AI 應用工程師</title>
-<meta name="description" content="陳力瑜的作品集：RAG、本地 LLM、後端系統、資料分析專案與履歷。">
+<meta name="description" content="陳力瑜的作品集：本機 RAG 與 Text2SQL、LINE AI 客服、後端系統、資料分析專案與履歷。">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -132,7 +132,7 @@ footer p{margin:0}
       <img src="photo.jpg" alt="陳力瑜大頭照">
       <div><h1>陳力瑜</h1><p class="role">AI 應用工程師｜後端系統 × 產業落地</p></div>
     </div>
-    <p class="intro">六年動物疫苗與寵物食品研發經驗，熟悉 GMP 產線、原料採購與 ERP 流程。現於資策會 LLM 工程師養成班受訓，能獨立設計並部署 FastAPI＋PostgreSQL 系統，已獨立完成可追溯引用的 RAG 系統並建立評測題庫，並有 Ollama、Strata 本地 LLM 部署經驗。</p>
+    <p class="intro">六年動物疫苗與寵物食品研發經驗，熟悉 GMP 產線、原料採購與 ERP 流程。現於資策會 LLM 工程師養成班受訓，能獨立設計並部署 FastAPI＋PostgreSQL 系統；已完成可追溯引用的 RAG 系統與評測題庫，並在單張 12GB 顯卡上做出全本機的 LINE AI 客服（RAG＋Text2SQL）。</p>
     <div class="btns">
       <a class="btn primary" href="#projects">看專案</a>
       <a class="btn" href="resume.pdf" download>下載 PDF 履歷</a>
@@ -192,10 +192,11 @@ footer p{margin:0}
   <h2>使用技術</h2>
   <p class="sub">依實際在專案中用過的程度整理。</p>
   <div class="skills">
-    <div class="sk"><h3>LLM 應用</h3><p>RAG（混合檢索、引用驗證、拒答）、Text-to-SQL、Prompt 設計、Ollama 與 Strata 本地部署、雲端 LLM API 串接</p></div>
+    <div class="sk"><h3>LLM 應用</h3><p>RAG（混合檢索、引用驗證、拒答）、Text-to-SQL、Prompt 設計、Ollama 與 Strata 本地部署、模型選型與基準評測、雲端 LLM API 串接</p></div>
     <div class="sk"><h3>程式與版本控制</h3><p>Python、SQL、Git、Lua、SAS</p></div>
-    <div class="sk"><h3>後端、測試與部署</h3><p>FastAPI、PostgreSQL、Qdrant、SQLAlchemy、Pydantic、Alembic、pytest、GitHub Actions、Docker Compose、Tailscale</p></div>
+    <div class="sk"><h3>後端、測試與部署</h3><p>FastAPI、PostgreSQL、SQLite、Qdrant、Chroma、SQLAlchemy、Pydantic、Alembic、pytest、GitHub Actions、Docker Compose、Tailscale</p></div>
     <div class="sk"><h3>機器學習實作</h3><p>資料清洗、特徵工程、模型訓練與評估</p></div>
+    <div class="sk"><h3>整合與自動化</h3><p>LINE Messaging API（Webhook、Reply／Push、群組 mention）、n8n 流程自動化、ngrok</p></div>
     <div class="sk"><h3>生成式影像</h3><p>ComfyUI 部署、圖像 LoRA 訓練</p></div>
     <div class="sk"><h3>硬體與系統</h3><p>PC 組裝與規格選配、硬體測試與除錯、Windows 伺服器架設</p></div>
     <div class="sk"><h3>語言與研發</h3><p>英文原文文獻閱讀、中英技術文件翻譯、原料檢驗分析、動物試驗</p></div>
@@ -213,6 +214,20 @@ footer p{margin:0}
 <script>
 /* ===== 新增專案：在這個陣列加一筆即可，最上面的會排第一 ===== */
 const PROJECTS = [
+  {
+    title: "LINE AI 客服機器人｜本機 RAG + Text2SQL",
+    date: "2026/11",
+    meta: "獨立開發・AI 課程教材知識庫・RTX 3060 12GB 單機部署",
+    lead: "在一台個人電腦上把 600 多份課程教材做成可查詢的知識庫，於 LINE 一對一與群組回答問題並附上出處；答不出來時自動寄信轉交真人，全程本機執行，零雲端 AI API 費用。",
+    points: [
+      ["本機 RAG 客服", "FastAPI＋Ollama（qwen3.5 9B）＋Chroma 部署在單張 12GB 顯卡；回答只根據檢索到的教材並標註引用來源，證據不足時輸出拒答訊號，一般問題 4–9 秒回覆。"],
+      ["多格式教材管線", "624 個檔案（PDF、簡報、Jupyter 筆記本、程式碼、圖片）以 SHA-256 去重後抽取切塊成 4,531 個向量區塊；768 張純圖片投影片另以視覺模型轉寫成可檢索文字，結果有快取可中斷續跑。"],
+      ["Text2SQL 資料查詢", "22 張資料表、約 1,416 萬列匯入 SQLite；LLM 以 JSON Schema 結構化輸出產生 SQL，執行端加上唯讀授權器、白名單與 25 秒逾時，SQL 出錯或結果為空會帶著回饋自動重寫。"],
+      ["模型選型與落地除錯", "以 12 題基準比較 4 個本機模型，選出唯一全對（12/12）的一個；並解決 VRAM 載入順序、冷啟動 49 秒、Windows 非 ASCII 路徑導致索引損毀與 LINE 純文字排版等問題。"],
+      ["真人接手與群組禮儀", "答不出來時呼叫 n8n 寄信通知專人；群組只在被 @ 時回覆（@ 位置依 LINE 規格以 UTF-16 計算），並優先使用免費的 Reply API 節省推播額度。"]
+    ],
+    stack: ["Python","FastAPI","Ollama","Chroma","SQLite","LINE Messaging API","n8n"]
+  },
   {
     title: "採購與報價知識助理（RAG）",
     date: "2026/10",
